@@ -6,9 +6,11 @@ import TodoItem from "./TodoItem";
 const TodosList = () => {
   const [todos, setTodos] = useState([]);
 
-  useEffect(async () => {
+  useEffect(() => {
+   const fetchData = async () => {
     const data = await axios.get("https://jsonplaceholder.typicode.com/todos");
     setTodos(data.data);
+   }
   });
   return (
     <div>{todos.length > 0 && todos.map((todo) => <TodoItem todo={todo} key={todo.id}/>)}</div>
