@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+import TodoItem from "./TodoItem";
+
 const TodosList = () => {
   const [todos, setTodos] = useState([]);
 
@@ -9,7 +11,7 @@ const TodosList = () => {
     setTodos(data.data);
   });
   return (
-    <div>{todos.length > 0 && todos.map((todo) => <h4>{todo.title}</h4>)}</div>
+    <div>{todos.length > 0 && todos.map((todo) => <TodoItem todo={todo} key={todo.id}/>)}</div>
   );
 };
 
