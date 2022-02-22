@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from "react";
+import { connect } from 'react-redux';
 import axios from "axios";
 
 import TodoItem from "./TodoItem";
+import { getTodos } from "../../actions/todosAction";
 
-const TodosList = () => {
-  const [todos, setTodos] = useState([]);
+
+const TodosList = ({todos, getTodos}) => {
+//   const [todos, setTodos] = useState([]);
 
   useEffect(async () => {
-    const data = await axios.get("https://jsonplaceholder.typicode.com/todos");
-    setTodos(data.data);
+    // const data = await axios.get("https://jsonplaceholder.typicode.com/todos");
+    getTodos();
+    // setTodos(data.data);
   });
   return (
-    <div>{todos.length > 0 && todos.map((todo) => <TodoItem todo={todo} key={todo.id}/>)}</div>
+    <div>{ todos !== null && todos.length > 0 && todos.map((todo) => <TodoItem todo={todo} key={todo.id}/>)}</div>
   );
 };
 
-export default TodosList;
+const mapStateToProps = state => ({
+    todos: state.toDos.toDos
+})
+
+export default connect(mapStateToProps, { getTodos})(TodosList);
